@@ -1,0 +1,20 @@
+---
+# tasks file for git
+- name: Install git for Linux 
+  package:
+    name: git 
+    state: latest 
+  when: ansible_facts['system'] == "Linux"
+
+- name: Install git for Windows 
+  win_chocolatey:
+    name: git 
+    state: present
+  when: ansible_facts['os_family'] == "Windows"
+
+- name: Install git for MacOS
+  become: False
+  homebrew:
+    name: git 
+    state: latest
+  when: ansible_facts['os_family'] == "Darwin"
